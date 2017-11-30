@@ -1,18 +1,52 @@
 ﻿<!DOCTYPE html>
 <html>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-<script src="mrMr.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src='https://use.fontawesome.com/dc7038f777.js'></script>
+  <script src="mrMr.js"></script>
+</head>
 <body>
-
 <div ng-app="myApp" ng-controller="namesCtrl"> 
-<mrspin c="lightskyblue" s="320"></mrspin>
-<ul>
-  <li ng-repeat="x in names">
-    {{ x.name + ', ' + x.country }}
-  </li>
-</ul>
-
+	<div class="container" ng-show="!pageLoaded">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+				<mrspin c="lightskyblue" s="300"></mrspin>
+			</div>
+		</div>
+	</div>
+	<div class="container" ng-show="pageLoaded">
+		<span ng-bind-html="lillib | mrHtml"></span>
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+				<input class="form-control input-lg" ng-model-options="{debounce: 250}" ng-model="searchText">				
+			</div>
+		</div>
+		<div class="table-responsive">          
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>        
+						<th><mrsort t="Name" b="name"></mrsort></th>
+						<th><mrsort t="Country" b="country"></mrsort></th>        
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in names | filter : searchText | orderBy : sortOrder : sortDirection">
+						<td>{{$index + 1}}</td>
+						<td>{{x.name}}</td>
+						<td>{{x.country}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
+<!--
 
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="320" height="320">
@@ -34,14 +68,26 @@
     keyTimes="0;.0833;.166;.25;.3333;.4166;.5;.5833;.6666;.75;.8333;.9166;1"
     values="0,160,160;30,160,160;60,160,160;90,160,160;120,160,160;150,160,160;180,160,160;210,160,160;240,160,160;270,160,160;300,160,160;330,160,160;360,160,160"/>
   </g>
-</svg>
+</svg>-->
 <script>
-angular.module('myApp', ["mrMr"]).controller('namesCtrl', function($scope) {
+angular.module('myApp', ["mrMr"]).controller('namesCtrl', function($scope, $timeout) {
     $scope.names = [
         {name:'Jani',country:'Norway'},
         {name:'Hege',country:'Sweden'},
-        {name:'Kai',country:'Denmark'}
+        {name:'Kai',country:'Denmark'},
+		{name:'Knut',country:'Norway'},
+        {name:'Inga',country:'Sweden'},
+        {name:'Harry',country:'Denmark'},
+		{name:'Andreas Brehme',country:'Germany'},
+		{name:'Rudi Völler',country:'Germany'}
     ];
+	$scope.lillib = "<h1 class='text-center' style='text-shadow: 2px 2px 3px grey;'>Medlemmer:</h1>"
+	$timeout(function () {
+		$scope.pageLoaded = true;
+    }, 1000);
+
+
+
 }); 
 </script>
 
