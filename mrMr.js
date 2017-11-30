@@ -62,3 +62,39 @@ var mrMr = angular.module('mrMr', []);
             return $sce.trustAsHtml(text);
         };
     }]);
+	
+	mrMr.filter('mrBin', [function () {
+        return function (text) {
+			var binary = ""
+			for (let i = 0; i < text.length; i++) {
+				let ib = "";
+				ib = text[i].charCodeAt(0).toString(2);
+				while (ib.length < 8) {
+					ib = "0" + ib;
+				}
+				binary += ib;
+			}
+            return binary;
+        };
+    }]);
+	
+	mrMr.filter('mrOct', [function () {
+        return function (text) {
+			var binary = ""
+			for (let i = 0; i < text.length; i++) {
+				binary += text[i].charCodeAt(0).toString(8);
+			}
+            return binary;
+        };
+    }]);
+	
+	mrMr.filter('mrHex', [function () {
+        return function (text) {
+			var binary = ""
+			for (let i = 0; i < text.length; i++) {
+				binary += text[i].charCodeAt(0).toString(16);
+			}
+            return binary;
+        };
+    }]);
+	
