@@ -63,6 +63,13 @@ var mrMr = angular.module('mrMr', []);
         };
     }]);
 	
+	mrMr.filter('mrStrip', [function () {
+        return function (text) {
+			var strippedText = text.replace(/<(?:.|\n)*?>/gm, '');
+            return strippedText;
+        };
+    }]);
+	
 	mrMr.filter('mrBin', [function () {
         return function (text) {
 			var binary = ""
@@ -98,3 +105,27 @@ var mrMr = angular.module('mrMr', []);
         };
     }]);
 	
+	mrMr.filter('mrKr', [function () {
+        return function (text) {
+			var kr = !isNaN(text) ? parseFloat(text) : 0;
+            return kr.toFixed(2).toString().replace(".",",") + " kr.";
+        };
+    }]);
+	
+	mrMr.filter('mrParse', [function () {
+        return function (text, start, end) {
+			return text.slice((text.indexOf(start) + start.length), text.indexOf(end));
+        };
+    }]);
+	
+	mrMr.filter('mrTruncate', [function () {
+        return function (text, maxLength) {
+			return (text.length > maxLength) ? text.substring(0, maxLength) : text;
+        };
+    }]);
+	
+	mrMr.filter('mrUpper', [function () {
+        return function (text) {
+			return (text.length > 1) ? (text.charAt(0).toString().toUpperCase() + text.substring(1)) : text;
+        };
+    }]);

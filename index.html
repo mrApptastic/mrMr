@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="container" ng-show="pageLoaded">
-		<span ng-bind-html="lillib | mrHtml"></span>
+		<span ng-bind-html="lillib | mrHtml"></span>		
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 				<input class="form-control input-lg" ng-model-options="{debounce: 250}" ng-model="searchText">				
@@ -44,6 +44,8 @@
 				</tbody>
 			</table>
 		</div>
+		<span ng-bind="lillib | mrStrip | mrTruncate : 7 | mrParse : 'M' : 'mm' | mrUpper"></span>
+		<h2 ng-bind="lillib | mrKr"></h2>
 	</div>
 </div>
 <!--
@@ -85,9 +87,6 @@ angular.module('myApp', ["mrMr"]).controller('namesCtrl', function($scope, $time
 	$timeout(function () {
 		$scope.pageLoaded = true;
     }, 1000);
-
-
-
 }); 
 </script>
 
