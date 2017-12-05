@@ -7,15 +7,20 @@ var mrMr = angular.module('mrMr', []);
 			scope : {
 				t: "@",
 				b: "@",
-				i: "@"
+				i: "@",
+				o: "@",
+				d: "@"
 			},
 			link: function(scope) {
+				var sort = scope.o ? scope.o.toString() : "sortOrder";
+				var dir = scope.d ? scope.d.toString() : "sortDirection";
+
 				scope.label = scope.t;			
 				scope.sort = function () {
-					if (scope.$parent.sortOrder == scope.b) {
-					scope.$parent.sortDirection = !scope.$parent.sortDirection;
+					if (scope.$parent[sort] == scope.b) {
+						scope.$parent[dir] = !scope.$parent[dir];
 					}
-					scope.$parent.sortOrder = scope.b;
+					scope.$parent[sort] = scope.b;
 				};
 				scope.getCursor = function ($event) {
 					$event.target.style.cursor = "pointer";
@@ -26,8 +31,8 @@ var mrMr = angular.module('mrMr', []);
 						icon = false;
 					}
 					if (icon) {
-						if (scope.$parent.sortOrder == scope.b) {
-							if (scope.$parent.sortDirection == true) {
+						if (scope.$parent[sort] == scope.b) {
+							if (scope.$parent[dir] == true) {
 								return "fa fa-sort-asc";
 							}
 							else {

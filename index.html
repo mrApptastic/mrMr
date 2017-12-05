@@ -15,7 +15,9 @@
 	<div class="container" ng-show="!pageLoaded">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+				<center>
 				<mrspin c="lightskyblue" s="300"></mrspin>
+				</center>
 			</div>
 		</div>
 	</div>
@@ -44,8 +46,26 @@
 				</tbody>
 			</table>
 		</div>
-		<span ng-bind="lillib | mrStrip | mrTruncate : 7 | mrParse : 'M' : 'mm' | mrUpper"></span>
-		<h2 ng-bind="lillib | mrKr"></h2>
+		<div class="table-responsive">          
+			<table class="table table-striped">
+				<thead>
+					<tr>  
+						<th><mrsort t="{{lillib | mrStrip | mrTruncate : 6}} Fornavn" b="name.split(' ')[0]" o="sort2" d="dir2"></mrsort></th>
+						<th><mrsort t="{{lillib | mrStrip | mrTruncate : 6}} Efternavn" b="name.split(' ')[1]" o="sort2" d="dir2"></mrsort></th>
+						<th><mrsort t="{{lillib | mrStrip | mrTruncate : 6}}skode" b="country" o="sort2" d="dir2"></mrsort></th>     
+						<th>Pris</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in names | filter : searchText | orderBy : sort2 : dir2">						
+						<td>{{x.name.split(' ')[0]}}</td>
+						<td>{{x.name.split(' ')[1]}}</td>
+						<td>{{((x.name | mrOct | mrParse : '1' : '5') + (x.country | mrTruncate : 3 | mrHex) | mrTruncate : 8 ) }}</td>
+						<td>{{($index * 3) +2 | mrKr}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 <!--
