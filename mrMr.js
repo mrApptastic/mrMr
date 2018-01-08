@@ -33,10 +33,10 @@ var mrMr = angular.module('mrMr', []);
 					if (icon) {
 						if (scope.$parent[sort] == scope.b) {
 							if (scope.$parent[dir] == true) {
-								return "fa fa-sort-asc";
+								return "fa fa-sort-desc";
 							}
 							else {
-								return "fa fa-sort-desc";
+								return "fa fa-sort-asc";
 							}					
 						}
 						else {
@@ -132,5 +132,24 @@ var mrMr = angular.module('mrMr', []);
 	mrMr.filter('mrUpper', [function () {
         return function (text) {
 			return (text.length > 1) ? (text.charAt(0).toString().toUpperCase() + text.substring(1)) : text;
+        };
+    }]);
+	
+	mrMr.filter('mrName', [function () {
+        return function (text, last) {
+			var ib = text.indexOf(" ") != -1 ? text.split(' ') : [text];
+			for (let i = 0; i < ib.length; i++) {
+				if (i != 0) {
+					if (i != ib.length -1) {
+						ib[i] = ib[i].substring(0,1) + ".";
+					}
+					else {
+						if (last != true) {							
+							ib[i] = ib[i].substring(0,1) + ".";
+						}
+					}
+				}
+			}
+			return ib.join(" ");
         };
     }]);

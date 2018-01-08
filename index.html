@@ -40,7 +40,7 @@
 				<tbody>
 					<tr ng-repeat="x in names | filter : searchText | orderBy : sortOrder : sortDirection">
 						<td>{{($index + 1).toString() | mrBin}}</td>
-						<td>{{x.name}}</td>
+						<td>{{x.name | mrName }}</td>
 						<td>{{x.country}}</td>
 					</tr>
 				</tbody>
