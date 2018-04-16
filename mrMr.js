@@ -73,7 +73,7 @@ var mrMr = angular.module('mrMr', []);
             ' class="text-muted fa" ng-class="load ? \'fa-spinner fa-pulse fa-3x fa-fw\' : (showSelect ? \'fa-caret-up\' : \'fa-caret-down\') "' +
             ' aria-hidden="true"></i>' +
             '</span>' +
-            '<ul class="apSelectItems" ng-show="showSelect" style="width:{{width}}; position: absolute; z-index: 99; left: 0; margin-left: 0px;">' +
+            '<ul class="apSelectItems" ng-show="showSelect" style="width:{{width}}; position: absolute; z-index: 99; left: 0; margin-left: 0px;overflow-x: hidden; overflow-y: scroll; max-height: 500px;">' +
             '' +
             '<li ng-mouseenter="tipIn($event)" ng-mouseleave="tipOut($event)" ng-repeat="n in data | orderBy : [p] : false" style="width:{{width}}; border: {{borderStyle}}; {{$index == data.length -1 ? \'\' : \'border-bottom: none;\'}}; list-style: none; margin-left: -40px; padding: 0; left: 0; top: 0; background: white; padding-left: 6px; z-index: 150; cursor: pointer;" ng-click="selected(n)">{{n[p]}}</li>' +
             '</ul>' +
