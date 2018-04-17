@@ -65,7 +65,7 @@ var mrMr = angular.module('mrMr', []);
     mrMr.directive("mrSelect", function () {
         return {
             restrict: "E",
-            template: '<span style="position: relative;">' +
+            template: '<span style="position: relative;" ng-mouseenter="theKingIsHere = true" ng-mouseleave="theKingIsHere = false">' +
             '<input type="text" class="apSelect" style="width:{{width}}; height:{{height}}px; border:{{borderStyle}}; border-radius: 4px; border-color: rgb(169, 169, 169); background-color: white; cursor: default; border-width: 1px; align-items: center; white-space: pre; padding: 0 0 0 4px; margin: 0 0 0 0; padding-left: {{textPadding}}px;" placeholder="{{text}}" ng-click="setFocus()" ng-change="textChanged()" ng-model="searchText" ng-model-options="{ debounce: 500 }" / >' +
             '<span class="apSelectClick" ng-click="showSelect = !showSelect" style="height:{{height - 1}}px;margin-top: {{tabOffset}}px; position: absolute; right: 1px; top: -2px; background: lightgrey; z-index: 1; padding: 0px 5px 0px 0px; border-radius: 0 4px 4px 0; font-weight: bold; cursor: pointer;padding-right: {{tabWidth}}px;">' +
             '&nbsp<i style="' +
@@ -172,6 +172,12 @@ var mrMr = angular.module('mrMr', []);
                         }
                     });
                 }
+				window.onclick = function () {
+                if (!scope.theKingIsHere) {
+                    scope.showSelect = false;
+                }
+                scope.$apply();
+            };
             }
         }
     });
